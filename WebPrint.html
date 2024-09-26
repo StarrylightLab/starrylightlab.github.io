@@ -29,16 +29,6 @@
     }
 
     @font-face {
-      font-family: "HYJieLongGuKaiW";
-      src: url(/fonts/HYJieLongGuKaiW.ttf);
-    }
-
-    @font-face {
-      font-family: "HYJieLongYouZiYinW";
-      src: url(/fonts/HYJieLongYouZiYinW.ttf);
-    }
-
-    @font-face {
       font-family: "HYZhongLiShuJ";
       src: url(/fonts/HYZhongLiShuJ.ttf);
     }
@@ -209,7 +199,6 @@
       /* display: none; */
     }
 
-
     :root {
       --page-size: A4;
     }
@@ -294,8 +283,6 @@
         <option value="tsangerfenghei">仓耳丰黑</option>
         <option value="tsangeryisong">仓耳宜宋</option>
         <option value="tsangerzhuyanti">仓耳竹言体</option>
-        <option value="HYJieLongGuKaiW">汉仪杰龙古楷</option>
-        <option value="HYJieLongYouZiYinW">汉仪杰龙游子吟</option>
         <option value="HYZhongLiShuJ">汉仪中隶书简</option>
         <option value="FZFWZhuZiAYuanJE">方正筑紫A圆</option>
       </select>
@@ -487,27 +474,27 @@
 
       window.print();
     }
-// 防抖函数
-function debounce(func, wait) {
-  let timeout;
-  return function(...args) {
-    const later = () => {
-      clearTimeout(timeout);
-      func.apply(this, args);
-    };
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-  };
-}
+    // 防抖函数
+    function debounce(func, wait) {
+      let timeout;
+      return function (...args) {
+        const later = () => {
+          clearTimeout(timeout);
+          func.apply(this, args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+      };
+    }
 
-// 修改监听器，使用防抖包裹updatePage和fitTextToContainer
-document.getElementById("size").addEventListener("change", debounce(updatePage, 200));
-document.getElementById("orientation").addEventListener("change", debounce(updatePage, 200));
-document.getElementById("font").addEventListener("change", debounce(updatePage, 200));
-document.getElementById("color").addEventListener("input", debounce(updatePage, 200));
-window.addEventListener("resize", debounce(fitTextToContainer, 200));
-window.addEventListener("resize", debounce(updatePage, 200));
-    
+    // 修改监听器，使用防抖包裹updatePage和fitTextToContainer
+    document.getElementById("size").addEventListener("change", debounce(updatePage, 200));
+    document.getElementById("orientation").addEventListener("change", debounce(updatePage, 200));
+    document.getElementById("font").addEventListener("change", debounce(updatePage, 200));
+    document.getElementById("color").addEventListener("input", debounce(updatePage, 200));
+    window.addEventListener("resize", debounce(fitTextToContainer, 200));
+    window.addEventListener("resize", debounce(updatePage, 200));
+
     // document.getElementById("size").addEventListener("change", updatePage);
     // document
     //   .getElementById("orientation")
