@@ -176,8 +176,6 @@
     }
 
     textarea::placeholder {
-      /* align-content: center; */
-      /* text-align: center; */
       color: rgb(230, 231, 238);
     }
 
@@ -338,8 +336,8 @@
   <div class="workspace" id="workspace">
     <div id="paper">
       <section class="typographical">
-        <textarea class="text" id="text-one" oninput="fitTextToContainer()" placeholder="输入文字"></textarea>
-        <textarea class="text" id="text-two" oninput="fitTextToContainer()" placeholder="输入文字"></textarea>
+        <textarea class="text" id="text-one" oninput="fitTextToContainer()" placeholder="写内容"></textarea>
+        <textarea class="text" id="text-two" oninput="fitTextToContainer()" placeholder="写内容"></textarea>
       </section>
     </div>
   </div>
@@ -395,15 +393,15 @@
           text_two.style.display = "none";
           text_one.style.flex = 1;
 
-          text_one.setAttribute("placeholder", "写到这里");
-          text_two.setAttribute("placeholder", "写到这里");
+          text_one.setAttribute("placeholder", "写内容");
+          text_two.setAttribute("placeholder", "写内容");
           // fitTextToContainer();
           break;
         case 'info':
           text_two.style.display = 'inherit';
           text_one.style.flex = 3;
           text_two.style.flex = 1;
-          text_one.setAttribute("placeholder", "输入内容");
+          text_one.setAttribute("placeholder", "写内容");
           text_two.setAttribute("placeholder", "100 0000 0000");
 
           break;
@@ -442,8 +440,6 @@
         textElement.style.fontFamily = font;
         textElement.style.color = color;
       });
-
-
       pagewidth = dimensions.width;
       pageheight = dimensions.height;
       pagesize = pagewidth + ' ' + pageheight;
@@ -452,10 +448,7 @@
       page.style.height = dimensions.height;
       //设置打印的纸张宽度和高度
       // setPageSize(dimensions.width, dimensions.height);
-
       updatePageSize(pagesize);
-
-
       const scale = Math.min(
         // window 改为workspace的宽高
         workspace.clientWidth / page.offsetWidth,
@@ -463,7 +456,6 @@
       );
       page.style.transform = `scale(${scale - 0.05})`;
       // page.style.transformOrigin = "top left";
-
       fitTextToContainer();
     }
 
@@ -471,7 +463,6 @@
       // 打印时确保重置scale值确保显示尺寸正确  
       const page = document.getElementById("paper");
       page.style.transform = `scale(1)`;
-
       window.print();
     }
     // 防抖函数
@@ -486,7 +477,6 @@
         timeout = setTimeout(later, wait);
       };
     }
-
     // 修改监听器，使用防抖包裹updatePage和fitTextToContainer
     document.getElementById("size").addEventListener("change", debounce(updatePage, 200));
     document.getElementById("orientation").addEventListener("change", debounce(updatePage, 200));
@@ -494,19 +484,7 @@
     document.getElementById("color").addEventListener("input", debounce(updatePage, 200));
     window.addEventListener("resize", debounce(fitTextToContainer, 200));
     window.addEventListener("resize", debounce(updatePage, 200));
-
-    // document.getElementById("size").addEventListener("change", updatePage);
-    // document
-    //   .getElementById("orientation")
-    //   .addEventListener("change", updatePage);
-    // document.getElementById("font").addEventListener("change", updatePage);
-    // document.getElementById("color").addEventListener("input", updatePage);
-
-    // window.addEventListener("resize", fitTextToContainer);
-    // window.addEventListener("resize", updatePage);
     document.addEventListener("DOMContentLoaded", updatePage);
-
-
   </script>
 </body>
 
