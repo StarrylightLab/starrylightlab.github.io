@@ -1,0 +1,43 @@
+* {
+    background-color: rgba(0, 0, 0, .02);
+    box-sizing: border-box;
+    position: relative;
+}
+
+input, button, textarea {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+    padding: 5px 10px;
+}
+
+input {
+    display: block;
+    width: 100%;
+}
+
+.wrap {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.navbar, .header {
+    text-align: center;
+}
+
+.navbar {
+    background-color: #db4c3f;
+    color: #f7f3ea;
+    padding: 10px 0;
+}
+
+.navbar h1 {
+    font-size: 24px;
+    margin: 0;
+}
+
+.header {
+    font-size: 18px;
+    color: #555;
+    padding: 15px 0;
+}
+
