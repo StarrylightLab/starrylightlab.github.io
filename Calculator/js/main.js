@@ -31,7 +31,7 @@ function handleNumber(num) {
 // 新增显示格式化函数
 // 增强的formatDisplay函数（处理科学计数法）
 function formatDisplay(value) {
-    if (value.endsWith('.')) return value;
+    // if (value.endsWith('.')) return value;
     const number = parseFloat(value);
 
     // 处理极大/极小数
