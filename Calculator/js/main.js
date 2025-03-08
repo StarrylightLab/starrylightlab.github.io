@@ -32,7 +32,7 @@ function handleNumber(num) {
 // 增强的formatDisplay函数（处理科学计数法）
 function formatDisplay(value) {
     // if (value.endsWith('.')) return value;
-    const number = parseFloat(value);
+    // const number = parseFloat(value);
 
     // 处理极大/极小数
     if (Math.abs(number) >= 1e21 || (number !== 0 && Math.abs(number) < 1e-6)) {
