@@ -41,7 +41,13 @@ input[type="number"] {
 .main a:hover {
     filter: brightness(60%);
 }
-
+.measure-span {
+    visibility: hidden;
+    white-space: nowrap;
+    position: absolute;
+    font-weight: 200;
+    font-family: system-ui;
+}
 .calculator {
     display: flex;
     flex-direction: column;
