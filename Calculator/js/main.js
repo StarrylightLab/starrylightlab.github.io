@@ -15,18 +15,26 @@ function handleNumber(num) {
         isNewNumber = false;
     }
 
-    // 防止以0开头输入多个0
-    if (currentValue === '0' && num === '0') return;
-    currentValue += num;
-    // 格式化显示（移除前导零）
-    display.value = formatDisplay(currentValue);
-    console.log('数字当前状态:', {
-        expression,
-        currentValue,
-        lastOperator,
-        lastOperand,
-        isNewNumber
-    });
+    // 处理小数点逻辑
+    if (num === '.') {
+        if (!hasDecimalPoint) {
+            currentValue = currentValue === '' ? '0.' : currentValue + '.';
+            hasDecimalPoint = true;
+        }
+    } 
+    // 处理数字逻辑
+    else {
+        // 允许直接输入类似 0.0000 的格式
+        currentValue += num;
+        
+        // 自动补全整数部分的0（当输入类似 .5 时显示0.5）
+        if (currentValue.startsWith('.') && !currentValue.startsWith('0.')) {
+            currentValue = '0' + currentValue;
+        }
+    }
+
+    // 直接显示原始输入值（保留所有数字）
+    display.value = currentValue;
 }
 // 新增显示格式化函数
 // 增强的formatDisplay函数（处理科学计数法）
@@ -137,6 +145,12 @@ function handleEqual() {
         lastOperand,
         isNewNumber
     });
+
+    // 自动补全小数点后的0
+    if (currentValue.endsWith('.')) {
+        currentValue += '0';
+    }
+
     expression= addZero(expression);
     if (!(currentValue && expression)) {
         const cleanedExpression = sanitizeExpression(expression);
@@ -239,6 +253,11 @@ function handleEqual() {
 // 修改handleOperator函数（添加日志）
 function handleOperator(operatorType) {
     console.log('--- 处理运算符 ---', operatorType);
+     // 如果当前输入以小数点结尾，自动补0
+     if (currentValue.endsWith('.')) {
+        currentValue += '0';
+        display.value = currentValue;
+    }
     const operatorMap = {
         'add': '+',
         'subtract': '-',
@@ -291,6 +310,7 @@ function handleSpecial(action) {
     switch (action) {
         case 'clear':
             // 新增状态重置
+            hasDecimalPoint = false; // 新增
             lastOperator = null;
             lastOperand = null;
             currentValue = '';
