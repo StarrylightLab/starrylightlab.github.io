@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <title>Starrylight · Web Projects</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 16px;
+    }
+    h1 { margin-bottom: 0.2em; }
+    .list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .card a {
+      text-decoration: none;
+      color: inherit;
+    }
+    .path {
+      color: #666;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🧩 我的 Web 项目</h1>
+<p>私有仓库自动部署到 GitHub Pages</p>
+
+<div class="list" id="list"></div>
+
+<script src="./main.js"></script>
+</body>
+</html>
