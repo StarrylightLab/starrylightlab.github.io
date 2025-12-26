@@ -1,0 +1,58 @@
+name: Generate Projects JSON
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  generate-projects:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Generate projects.json
+        run: |
+          # 定义项目信息
+          projects='[
+            {"name": "Pixler(豆图)", "path": "https://starrylightlab.github.io/pixler/", "description": "Pixler 是一款可以将像素画图片转换成带有坐标的图纸。它非常适合用来做制作拼豆、十字绣或编制等像素创意形式延展复刻。"},
+            {"name": "打字到纸上", "path": "/TypedPaper/TypedPaper.html", "description": "这是一个根据字数多少自动排版到A4纸上的工具"},
+            {"name": "苹果计算器", "path": "/Calculator/calculator.html", "description": "尽可能还原一个iOS的计算器，支持混合运算"},
+            {"name": "Todo List", "path": "/Todo/todo.html", "description": "一个简单的todolist应用"}
+          ]'
+          
+          # 检查是否有新的项目目录需要添加
+          for dir in */; do
+            dir_name=$(basename "$dir")
+            if [[ "$dir_name" != "css" && "$dir_name" != "assets" && "$dir_name" != ".github" ]]; then
+              # 检查项目是否已存在于projects数组中
+              if [[ "$projects" != *"$dir_name"* ]]; then
+                # 假设HTML文件名为该目录的index.html
+                html_file="$dir_name/index.html"
+                if [ ! -f "$html_file" ]; then
+                  # 如果没有index.html，查找目录中的第一个HTML文件
+                  html_file=$(find "$dir" -name "*.html" | head -1)
+                fi
+                
+                if [ -f "$html_file" ]; then
+                  # 计算相对路径
+                  relative_path=$(echo "$html_file" | sed 's| |%20|g')
+                  # 添加新项目
+                  projects=$(echo "$projects" | sed 's/]$/, {\"name\": \"'"$dir_name\"", \"path\": \"'"/$relative_path\"", \"description\": \"自动添加的项目\"}]/' )
+                fi
+              fi
+            fi
+          done
+          
+          # 输出到projects.json文件
+          echo "$projects" > projects.json
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add projects.json
+          git diff --quiet || git commit -m "Update projects.json"
+          git push

@@ -1,51 +1,157 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>一些小玩意儿</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>小工具集合</title>
+
+  <!-- 本地编译的Tailwind CSS -->
+  <link rel="stylesheet" href="./assets/styles.css">
+
+  <!-- Vue.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
 </head>
-<!-- 测试 -->
-<body>
-  <div class="warp" style="clear:both;">
-    <header>
-      <h2>一些小玩意儿</h2>
-      <p>学习前端写一些小玩意儿锻炼一下自己！😂</p>
-    </header>
-      <article class="content">
-          <div class="card">
-              <h3>Pixler(豆图)</h3>
-              <p>Pixler 是一款可以将像素画图片转换成带有坐标的图纸。它非常适合用来做制作拼豆、十字绣或编制等像素创意形式延展复刻。</p>
-
-              <a href="https://starrylightlab.github.io/pixler/">打开Pixler</a>
+<body class="bg-gray-50 min-h-screen">
+  <div id="app">
+    <!-- 导航栏 - 官方Application UI风格 -->
+    <nav class="bg-white shadow">
+      <div class="max-w-[1000px] mx-auto px-4 sm:px-6">
+        <div class="flex justify-between h-16">
+          <div class="flex">
+            <div class="flex-shrink-0 flex items-center">
+              <!-- Logo - 官方Application UI风格 -->
+              <svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+              </svg>
+              <span class="ml-2 text-xl font-semibold text-primary">Starrylight's Lab</span>
+            </div>
+            <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
+              <!-- 导航链接 - 官方Application UI风格 -->
+              <a href="#" class="border-primary text-primary inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                首页
+              </a>
+              <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                分类
+              </a>
+              <a href="#" class="border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700 inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
+                关于
+              </a>
+            </div>
           </div>
-          <article class="content">
-              <div class="card">
-                  <h3>打字到纸上</h3>
-                  <p>这是一个根据字数多少自动排版到A4纸上的工具</p>
 
-                  <a href="TypedPaper/TypedPaper.html">打开Typed Paper</a>
-              </div>
-      <div class="card">
-        <h3>苹果计算器</h3>
-        <p>网上关于计算器的编写教程有很多，但大多数存在很多错误。比如不能混合运算的。</p>
-        <p>我的练习目标是尽可能还原一个iOS的计算器。</p>
-        <a href="Calculator\calculator.html">打开计算器</a>
+          <div class="flex items-center">
+            <!-- 移动端菜单按钮 - 官方Application UI风格 -->
+            <button @click="toggleMobileMenu" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary sm:hidden">
+              <span class="sr-only">打开主菜单</span>
+              <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      <!-- 手机端菜单内容 -->
+      <div v-if="mobileMenuOpen" class="sm:hidden">
+        <div class="pt-2 pb-3 space-y-1">
+          <!-- 导航链接 -->
+          <a href="#" class="bg-primary/5 border-primary text-primary block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+            首页
+          </a>
+          <a href="#" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+            分类
+          </a>
+          <a href="#" class="border-transparent text-gray-500 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+            关于
+          </a>
+        </div>
       </div>
-<!--      <div class="card">-->
-<!--        <h3>Todo List</h3>-->
-<!--        <p>一个简单的todolist</p>-->
-<!--        <a href="Todo\todo.html">打开TO-DO-List</a>-->
-<!--      </div>-->
-<!--      -->
+    </nav>
 
-    </article>
+    <!-- 主内容区 - 官方Application UI风格 -->
+    <main class="max-w-[1000px] mx-auto py-6 px-4 sm:px-6">
+      <!-- 页面头部 - 官方Application UI风格 -->
+      <div class="px-4 py-6 sm:px-0">
+        <div class="flex flex-col md:flex-row items-center justify-between">
+          <div>
+            <h1 class="text-3xl font-bold text-primary">✨Starrylight's Lab</h1>
+            <p class="mt-1 text-sm text-gray-600">学习前端开发的各种小工具，帮助你解决日常问题</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 项目卡片网格 - 大卡片风格 -->
+      <div class="mt-8 space-y-6">
+        <!-- 项目卡片 - 大卡片风格 -->
+        <div v-for="project in projects" :key="project.name" class="bg-white overflow-hidden border border-gray-200 rounded-lg hover:border-primary hover:shadow-md transition-all duration-200">
+          <div class="p-8">
+            <!-- 卡片头部 -->
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <!-- 项目图标 - 使用emoji -->
+                <div class="h-16 w-16 rounded-full bg-primary/10 flex items-center justify-center">
+                  <span class="text-4xl">{{ getProjectEmoji(project) }}</span>
+                </div>
+              </div>
+              <div class="ml-6">
+                <h3 class="text-2xl font-semibold text-gray-900">{{ project.name }}</h3>
+              </div>
+            </div>
+            <!-- 卡片内容 -->
+            <div class="mt-6">
+              <p class="text-lg text-gray-600">{{ project.description }}</p>
+            </div>
+            <!-- 卡片底部 -->
+            <div class="mt-8">
+              <!-- 操作按钮 - 大按钮风格 -->
+              <a :href="project.path" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                打开{{ project.name }}
+                <svg class="ml-2 -mr-1 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
   </div>
 
-
+  <!-- Vue.js 应用 - 动态加载项目 -->
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          projects: [],
+          mobileMenuOpen: false,
+          defaultEmojis: ["✨", "🎨", "📄", "🔢", "✅", "🎮", "📱", "💻", "🎯", "🚀", "🌟", "🎭", "🔧", "📊", "🎵"]
+        },
+      methods: {
+        toggleMobileMenu() {
+          this.mobileMenuOpen = !this.mobileMenuOpen;
+        },
+        getProjectEmoji(project) {
+          // 如果项目有emoji，直接返回
+          if (project.emoji) {
+            return project.emoji;
+          }
+          // 否则随机选择一个默认emoji
+          const randomIndex = Math.floor(Math.random() * this.defaultEmojis.length);
+          return this.defaultEmojis[randomIndex];
+        }
+      },
+      mounted() {
+        // 加载项目列表
+        fetch('./projects.json')
+          .then(response => response.json())
+          .then(data => {
+            this.projects = data;
+          })
+          .catch(error => {
+            console.error('加载项目列表失败:', error);
+          });
+      }
+    });
+  </script>
 </body>
-
 </html>
