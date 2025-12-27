@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <!-- Content Security Policy removed to avoid conflicts with GitHub Pages default settings -->
     <title>Pixler</title>
 
     <!-- PWA -->
-    <link rel="manifest" href="/pixler/assets/manifest-Dk4L0_3C.json" />
+    <link rel="manifest" href="/pixler/assets/manifest-BhYGAxye.json" />
     <meta name="theme-color" content="#D9367F" />
     <link rel="apple-touch-icon" href="/pixler/iOS-touch-icon.png">
     <link rel="icon" href="/pixler/favicon.png" type="image/png" />
@@ -15,7 +14,7 @@
     <!-- Tailwind CSS CDN (Restored for Preview Environment) -->
     <!-- Note: The project is also configured for Vite+PostCSS build (see tailwind.config.js), but CDN is required for this live preview -->
 <!--    <script src="https://cdn.tailwindcss.com"></script>-->
-<!--    <script>-->
+<!--    <script>--> 
 <!--        tailwind.config = {-->
 <!--            darkMode: 'class',-->
 <!--            theme: {-->
@@ -88,7 +87,7 @@
         window.addEventListener('load', () => {
             // Use absolute path /sw.js to ensure correct loading from root
 
-            navigator.serviceWorker.register('/pixler/sw.js')
+            navigator.serviceWorker.register('/sw.js')
                 .then(registration => {
                     console.log('ServiceWorker registration successful with scope: ', registration.scope);
                 })

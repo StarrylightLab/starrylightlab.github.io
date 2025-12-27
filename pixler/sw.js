@@ -5,8 +5,8 @@ const urlsToCache = [
     '/manifest.json'
 ];
 
-self.addEventListener('install', event => {
-    // 1. Force the waiting service worker to become the active service worker.
+self.addEventListener('install', event => {//
+    // 1. Force the waiting service worker to become the active service worker. OKOKOKOK
     self.skipWaiting();
 
     event.waitUntil(
