@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#e9edf2" />
+  <meta name="description" content="输入文字，自动排版，轻松打印。制作门店告示、联系电话和简短提示。" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="TypedPaper" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <link rel="manifest" href="./manifest.webmanifest?v=2" />
+  <link rel="icon" href="./app-icons/favicon.ico?v=2" />
+  <link rel="icon" type="image/png" sizes="32x32" href="./app-icons/icon-32.png?v=2" />
+  <link rel="apple-touch-icon" sizes="120x120" href="./app-icons/icon-120.png?v=2" />
+  <link rel="apple-touch-icon" sizes="152x152" href="./app-icons/icon-152.png?v=2" />
+  <link rel="apple-touch-icon" sizes="167x167" href="./app-icons/icon-167.png?v=2" />
+  <link rel="apple-touch-icon" sizes="180x180" href="./app-icons/icon-180.png?v=2" />
+  <title>TypedPaper · 大字打印</title>
+  <script type="module" crossorigin src="./assets/index-BnrN60YW.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CXREGfOx.css">
+</head>
+<body>
+  <div id="app">
+    <header class="app-header">
+      <span id="save-state" class="save-state" role="status">内容仅保存在此浏览器</span>
+      <nav class="main-tools" aria-label="主要操作">
+        <div class="brand"><button id="about-button" class="brand-about" type="button" aria-haspopup="dialog" aria-label="关于 TypedPaper" title="关于 TypedPaper"><img src="./app-icons/header-icon.png" alt=""/></button><div><strong>TypedPaper</strong><span>字号自动调整，写好就能打印</span></div></div>
+        <div id="templates" class="template-buttons template-toolbar" role="group" aria-label="版式"></div>
+        <div class="toolbar-actions">
+        <div class="toolbar-group typography-tools">
+        <button id="font-button" class="main-tool font-main" aria-haspopup="dialog"><img class="control-icon" src="./icons/preferences-desktop-font.png" alt=""/><span>字体</span><strong id="font-name">仓耳丰黑</strong><span class="chevron" aria-hidden="true"></span></button>
+        <button id="direction-button" class="main-tool"><img id="direction-icon" src="./icons/x-office-document.png" alt=""/><span id="direction-label">横向</span></button>
+        </div>
+        <div class="toolbar-group edit-tools" aria-label="编辑操作">
+        <button id="undo" disabled class="main-tool small-tool" title="撤销（⌘Z / Ctrl+Z）"><img src="./icons/edit-undo.png" alt=""/><span>撤销</span></button>
+        <button id="redo" disabled class="main-tool small-tool" title="重做（⌘⇧Z / Ctrl+Shift+Z）"><img src="./icons/edit-redo.png" alt=""/><span>重做</span></button>
+        <button id="clear-all" disabled class="main-tool" title="清空所有文字（可撤销）" aria-label="清空所有文字"><svg class="clear-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 10v7m4-7v7"/></svg><span>清空</span></button>
+        </div>
+        <div class="toolbar-group page-tools" aria-label="页面设置">
+        <button id="margin-button" class="main-tool" aria-haspopup="true" aria-expanded="false"><img src="./icons/document-properties.png" alt=""/><span>页边距</span></button>
+        <button id="paper-button" class="main-tool" aria-haspopup="true" aria-expanded="false"><img src="./icons/x-office-document-template.png" alt=""/><span>纸张</span><small id="paper-name">A4</small></button>
+        <button id="paper-color-button" class="main-tool" aria-haspopup="dialog" title="纸张颜色"><span id="paper-color-swatch" class="paper-color-swatch" aria-hidden="true"></span><span>纸色</span></button>
+        </div>
+        <div class="output-actions">
+          <button id="pdf" class="main-tool secondary-output"><img src="./icons/document-save-as.png" alt=""/><span>下载 PDF</span></button>
+          <button id="print" class="main-tool print-tool"><img src="./icons/document-print.png" alt=""/><span>打印</span></button>
+        </div>
+        </div>
+      </nav>
+    </header>
+    <section id="text-toolbar" class="text-toolbar text-popup" aria-label="选中文字设置" hidden>
+      <div class="palette-handle"><span id="palette-title">文字设置</span><small id="palette-scope" hidden>选中文字可单独调整</small><button id="palette-close" class="icon-button close-icon" aria-label="关闭文字设置" title="关闭文字设置"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11m0-11-11 11"/></svg></button></div>
+      <div class="palette-body">
+
+      <button id="popup-font" class="icon-button" aria-haspopup="dialog" aria-label="选择字体" title="选择字体"><img class="control-icon" src="./icons/preferences-desktop-font.png" alt=""/></button>
+      <button id="color-button" class="icon-button" aria-haspopup="dialog" aria-label="文字颜色" title="文字颜色"><span class="text-color-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path class="color-letter-outline" fill-rule="evenodd" d="M3 21 9 3h6l6 18h-4.3l-1.1-3.8H8.4L7.3 21H3Zm6.5-7.2h5L12 6.1l-2.5 7.7Z"/><path id="color-icon-letter" class="color-letter-fill" fill-rule="evenodd" d="M3 21 9 3h6l6 18h-4.3l-1.1-3.8H8.4L7.3 21H3Zm6.5-7.2h5L12 6.1l-2.5 7.7Z"/></svg></span></button>
+      <span class="tool-divider"></span>
+      <button id="smaller" class="icon-button" aria-label="缩小选中文字" title="缩小选中文字"><span class="size-glyph" aria-hidden="true">A<sup>−</sup></span></button><span id="relative-size" title="选中文字相对于本区域其他文字的大小">100%</span><button id="larger" class="icon-button" aria-label="放大选中文字" title="放大选中文字"><span class="size-glyph" aria-hidden="true">A<sup>+</sup></span></button>
+      <span class="tool-divider"></span>
+      <button id="bold" class="icon-button" aria-pressed="false" aria-label="加粗" title="加粗"><img class="control-icon" src="./icons/format-text-bold.png" alt=""/></button><button id="italic" class="icon-button" aria-pressed="false" aria-label="斜体" title="斜体"><img class="control-icon" src="./icons/format-text-italic.png" alt=""/></button><button id="underline" class="icon-button" aria-pressed="false" aria-label="下划线" title="下划线"><img class="control-icon" src="./icons/format-text-underline.png" alt=""/></button>
+      <span class="tool-divider"></span>
+      <div class="align-buttons" role="group" aria-label="区域文字对齐">
+        <button class="icon-button" data-align="left" aria-label="靠左对齐" title="区域文字靠左对齐"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 10h10M4 14h16M4 18h10"/></svg></button>
+        <button class="icon-button" data-align="center" aria-label="居中对齐" title="区域文字居中对齐"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M7 10h10M4 14h16M7 18h10"/></svg></button>
+        <button class="icon-button" data-align="right" aria-label="靠右对齐" title="区域文字靠右对齐"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M10 10h10M4 14h16M10 18h10"/></svg></button>
+      </div>
+      <span class="tool-divider"></span><button id="reset-region-style" class="icon-button" title="清除本区域所有文字的样式" aria-label="清除本区域所有文字的样式"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 10a7.5 7.5 0 1 1 .9 5.8M4.5 5.5V10H9M8.5 17l3.5-9 3.5 9M9.4 14.7h5.2"/></svg><span>清除样式</span></button>
+      <button id="select-all">选中本区全部文字</button>
+      </div>
+    </section>
+    <div class="workspace-bar"><span id="editing-label">点击纸张输入文字，选中文字后可调整样式</span><div id="tear-controls" class="region-controls" hidden><label for="tear-count">电话条数量</label><div class="number-stepper"><button id="tear-minus" aria-label="减少电话条数量">−</button><input id="tear-count" type="number" min="1" max="30" step="1" value="10" inputmode="numeric" aria-label="电话条数量"/><button id="tear-plus" aria-label="增加电话条数量">＋</button></div><span>文字方向</span><button data-tear-direction="horizontal" title="整串号码旋转，沿竖向排列"><span class="tear-rotated-icon" aria-hidden="true">A</span>旋转竖排</button><button data-tear-direction="vertical" title="每个字保持正立，从上往下排列"><span class="tear-upright-icon" aria-hidden="true">A</span>正立直排</button></div><span id="layout-summary">单段大字 · 横向</span></div>
+    <main id="workspace" class="workspace" aria-label="纸张工作区">
+      <div id="paper" class="paper" tabindex="0" role="group" aria-label="纸张预览，点击输入文字">
+        <canvas id="artwork" aria-label="作品预览"></canvas>
+        <canvas id="selection" aria-hidden="true"></canvas>
+        <div id="margin-guide" class="margin-guide" hidden aria-hidden="true"></div>
+        <div id="splitter" class="splitter" role="separator" tabindex="0" aria-label="调整分区比例" aria-valuemin="15" aria-valuemax="85" aria-valuenow="50" hidden>
+          <span class="splitter-line"></span><span class="splitter-grip" aria-hidden="true"></span><span id="splitter-caption" class="splitter-caption">拖动调整分区</span>
+        </div>
+        <div id="custom-dividers" class="custom-divider-layer" aria-label="自定义分区调整"></div>
+        <div id="region-outline" class="region-outline" hidden></div>
+        <button id="region-label" class="region-label-button" title="设置整个区域的文字样式" aria-label="设置整个区域的文字样式" hidden><span class="region-label-icon" aria-hidden="true">文</span><span id="region-label-text">主要内容</span></button>
+        <div id="custom-controls" class="region-controls paper-region-controls" role="group" aria-label="选中区域操作" hidden>
+          <button id="split-x" title="左右拆分" aria-label="左右拆分"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M12 4v16M6.5 12h3m-1.5-1.5v3m6.5-1.5h3m-1.5-1.5v3"/></svg></button>
+          <button id="split-y" title="上下拆分" aria-label="上下拆分"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 12h18M10.5 8h3M12 6.5v3m-1.5 6h3M12 14v3"/></svg></button>
+          <button id="remove-region" title="删除区域（保留文字）" aria-label="删除区域，保留文字"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m-9 0 1 13h10l1-13M10 10v7m4-7v7"/></svg></button>
+        </div>
+        <div id="caret" class="caret" hidden></div>
+        <div id="empty-primary" class="empty-hint"><strong>点击这里输入文字</strong></div>
+        <div id="empty-secondary" class="empty-hint" hidden><strong>点击输入次要内容</strong></div>
+        <textarea id="text-input" aria-label="纸上文字输入" spellcheck="false" autocomplete="off" autocapitalize="off" tabindex="-1"></textarea>
+      </div>
+    </main>
+    <footer><div class="inline region-navigation"><button id="edit-primary">编辑主要内容</button><button id="edit-secondary" hidden>编辑次要内容</button><span id="page-info">A4 · 横向 · 单页</span></div><span id="status" role="status" aria-live="polite">正在加载内置字体…</span></footer>
+    <div id="status-toast" class="status-toast" aria-hidden="true" hidden></div>
+  </div>
+  <section id="margin-panel" class="page-popover" role="region" aria-label="页边距设置" hidden><div class="page-popover-title"><strong>页边距</strong><small id="margin-current" hidden></small></div><div class="option-grid" aria-label="四边留白"><button data-margin="4"><span class="option-value">4 mm</span><small>最小</small></button><button data-margin="8"><span class="option-value">8 mm</span><small>较窄</small></button><button data-margin="12"><span class="option-value">12 mm</span><small>标准</small></button><button data-margin="20"><span class="option-value">20 mm</span><small>较宽</small></button><button data-margin="30"><span class="option-value">30 mm</span><small>很宽</small></button></div></section>
+  <section id="paper-panel" class="page-popover" role="region" aria-label="纸张设置" hidden><div class="page-popover-title"><strong>纸张尺寸</strong></div><div class="option-grid" aria-label="纸张尺寸"><button data-paper="a4"><span class="option-value">A4</span><small>210 × 297 mm</small></button><button data-paper="a3"><span class="option-value">A3</span><small>297 × 420 mm</small></button><button data-paper="b4"><span class="option-value">B4</span><small>250 × 353 mm</small></button></div></section>
+  <dialog id="about-dialog" class="about-dialog" aria-labelledby="about-title"><div class="dialog-heading"><h2 id="about-title">关于 TypedPaper</h2><button data-close class="icon-button close-icon" title="关闭" aria-label="关闭关于页面"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11m0-11-11 11"/></svg></button></div><div class="about-content"><img src="./app-icons/header-icon.png" alt=""/><strong class="about-name">TypedPaper</strong><span id="about-version" class="about-version"></span><p>输入文字，自动排版，轻松打印。</p></div></dialog>
+  <dialog id="font-dialog" class="font-dialog"><div class="dialog-heading"><h2>选择字体</h2><button data-close class="icon-button close-icon" title="关闭" aria-label="关闭字体面板"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11m0-11-11 11"/></svg></button></div><div class="font-search"><input id="font-search" type="search" placeholder="搜索字体名称" aria-label="搜索字体名称"/><button id="favorites-only" class="icon-button star-icon" aria-pressed="false" aria-label="只看收藏和内置字体" title="只看收藏和内置字体">☆</button></div><p id="font-note" class="dialog-note">内置字体打开即可使用。电脑字体需要浏览器支持并由你授权。</p><div id="font-list" class="font-list"></div><div class="dialog-footer"><button id="load-local" class="icon-button" title="使用电脑字体" aria-label="使用电脑字体"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 20h8m-4-3v3M12 7v7m-3.5-3.5h7"/></svg></button><span>点击电脑图标授权使用电脑字体；收藏保存在此浏览器。</span></div></dialog>
+  <dialog id="paper-color-dialog" class="color-dialog"><div class="dialog-heading"><h2>纸张颜色</h2><button data-close class="icon-button close-icon" title="关闭" aria-label="关闭纸张颜色面板"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11m0-11-11 11"/></svg></button></div><p class="dialog-note">所选颜色会包含在 PDF 和打印内容中。</p><div id="paper-palette" class="palette" aria-label="纸张颜色"></div><details class="more-colors"><summary>更多颜色</summary><div class="color-detail"><label class="custom-color-picker"><span>选择颜色</span><input id="paper-native-color" type="color" value="#ffffff" aria-label="选择纸张颜色" /></label><label class="color-code-field"><span>颜色代码</span><input id="paper-hex" type="text" value="#ffffff" maxlength="7" spellcheck="false" autocomplete="off" aria-describedby="paper-color-error" /></label><p class="color-auto-note">选择后自动应用</p><p id="paper-color-error" class="error" role="alert"></p></div></details></dialog>
+  <dialog id="color-dialog" class="color-dialog"><div class="dialog-heading"><h2>文字颜色</h2><button data-close class="icon-button close-icon" title="关闭" aria-label="关闭颜色面板"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 6.5l11 11m0-11-11 11"/></svg></button></div><p class="dialog-note">选择常用颜色，或展开更多颜色。</p><div id="palette" class="palette"></div><details class="more-colors"><summary>更多颜色</summary><div class="color-detail"><label class="custom-color-picker"><span>选择颜色</span><input id="native-color" type="color" value="#15171a" aria-label="选择文字颜色" /></label><label class="color-code-field"><span>颜色代码</span><input id="hex" type="text" value="#15171a" maxlength="7" spellcheck="false" autocomplete="off" aria-describedby="color-error" /></label><p class="color-auto-note">选择后自动应用</p><p id="color-error" class="error" role="alert"></p></div></details></dialog>
+</body>
+</html>
